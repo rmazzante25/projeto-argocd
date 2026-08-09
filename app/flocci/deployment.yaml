@@ -18,12 +18,14 @@ spec:
       - name: floci
         image: floci/floci:latest
         imagePullPolicy: IfNotPresent
+        env:
+        # Define os serviços baseados em Docker para responderem em modo mock
+        - name: FLOCI_SERVICES_DOCDB_MOCK
+          value: "true"
+        - name: FLOCI_SERVICES_EKS_MOCK
+          value: "true"
+        - name: FLOCI_SERVICES_MWAA_MOCK
+          value: "true"
         ports:
         - containerPort: 4566
           name: api
-        readinessProbe:
-          httpGet:
-            path: /_floci/health
-            port: 4566
-          initialDelaySeconds: 5
-          periodSeconds: 10

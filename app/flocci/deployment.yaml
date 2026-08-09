@@ -18,17 +18,6 @@ spec:
       - name: floci
         image: floci/floci:latest
         imagePullPolicy: IfNotPresent
-        # Roda como root para acesso ao socket do docker
-        securityContext:
-          runAsUser: 0
         ports:
         - containerPort: 4566
           name: api
-        volumeMounts:
-        - name: docker-socket
-          mountPath: /var/run/docker.sock
-      volumes:
-      - name: docker-socket
-        hostPath:
-          path: /var/run/docker.sock
-          type: Socket

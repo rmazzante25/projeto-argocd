@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: floci-service
 spec:
-  type: ClusterIP
-  ports:
-  - port: 80
-    targetPort: 80
-    protocol: TCP
-    name: http
+  type: ClusterIP   # Serviço privado dentro do cluster
   selector:
-    app: flocci
+    app: floci
+  ports:
+    - name: api
+      port: 4566
+      targetPort: 4566

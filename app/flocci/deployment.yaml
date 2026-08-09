@@ -21,3 +21,9 @@ spec:
         ports:
         - containerPort: 4566
           name: api
+        readinessProbe:
+          httpGet:
+            path: /_floci/health
+            port: 4566
+          initialDelaySeconds: 5
+          periodSeconds: 10

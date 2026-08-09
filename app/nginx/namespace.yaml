@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-app
+  labels:
+    name: nginx
+    environment: production # Ex: development, staging, production
+    managed-by: argocd     # Ou terraform, kubectl, helm, etc.

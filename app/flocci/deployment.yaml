@@ -18,9 +18,18 @@ spec:
       - name: floci
         image: floci/floci:latest
         imagePullPolicy: IfNotPresent
-        env:
-        - name: FLOCI_UI_ENABLED
-          value: "false"
+        securityContext:
+          runAsUser: 0
+          privileged: true  # Permite ignorar travas do SELinux/AppArmor no socket
         ports:
         - containerPort: 4566
           name: api
+        volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-socket
+        hostPath:
+          # AUSTE ESTE CAMINHO se o seu host usar Podman em vez de Docker
+          path: /var/run/docker.sock
+          type: Socket

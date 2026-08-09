@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: floci
+  labels:
+    app: floci
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: floci
+  template:
+    metadata:
+      labels:
+        app: floci
+    spec:
+      containers:
+      - name: floci
+        image: floci/floci:latest
+        imagePullPolicy: IfNotPresent
+        # Roda como root para acesso ao socket do docker
+        securityContext:
+          runAsUser: 0
+        ports:
+        - containerPort: 4566
+          name: api
+        volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-socket
+        hostPath:
+          path: /var/run/docker.sock
+          type: Socket

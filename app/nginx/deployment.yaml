@@ -9,7 +9,7 @@ metadata:
     environment: production
     managed-by: argocd
 spec:
-  replicas: 2
+  replicas: 2 
   selector:
     matchLabels:
       app: nginx
